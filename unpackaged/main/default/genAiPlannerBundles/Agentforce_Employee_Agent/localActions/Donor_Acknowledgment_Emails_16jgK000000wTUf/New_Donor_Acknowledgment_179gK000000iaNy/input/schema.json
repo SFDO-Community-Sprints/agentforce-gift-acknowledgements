@@ -1,0 +1,36 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "Input:Gift_Transaction" : {
+      "title" : "Gift Transaction",
+      "description" : "When a input transaction is given then query that transaction",
+      "lightning:type" : "lightning__recordInfoType",
+      "lightning:sObjectInfo" : {
+        "apiName" : "GiftTransaction"
+      },
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "Input:Donor_Gift_Summary" : {
+      "title" : "Donor Gift Summary",
+      "description" : "For the given gift transaction, find the account and then find associated donor gift summary ",
+      "lightning:type" : "lightning__recordInfoType",
+      "lightning:sObjectInfo" : {
+        "apiName" : "DonorGiftSummary"
+      },
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "Input:Major_Gift_Threshold" : {
+      "title" : "Major Gift Threshold",
+      "description" : "Find Major Gift Threshold record in this organization",
+      "lightning:type" : "lightning__recordInfoType",
+      "lightning:sObjectInfo" : {
+        "apiName" : "Major_Gift_Threshold__c"
+      },
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>nsHSiXsHsM8RDfv+biI7HhOr3CfPz9ZI5HW+fmzi3Zs=_1</activeVersionIdentifier>
+    <developerName>Lapsed_Donor_Acknowledgment</developerName>
+    <masterLabel>Reactivated Donor Acknowledgment</masterLabel>
+    <templateVersions>
+        <content>I am a gift officer at this nonprofit organization. The audience is a lapsed donor who is making a returning gift. 
+
+I want to generate an acknowledgment letter for this lapsed donor&#39;s gift to my organization. This letter should be no more than 3 paragraphs long and no more than 350 words. The language should be concise, professional, and gracious. The donor should feel appreciated for making a returning gift. 
+
+In the first paragraph, we need to reference the {!$Input:Gift_Transaction.CurrentAmount}, {!$Input:Gift_Transaction.TransactionDate}, and {!$Input:Gift_Transaction.PaymentMethod} and reference the fact that they&#39;re a returning donor.
+
+In the second paragraph, we need to include information about the {!$Input:Gift_Transaction.Campaign.Name} and {!$RelatedList:Gift_Transaction.GiftTransactionDesignationRelation.Records} they donated to to thank them for their contribution. We want to also reference their past giving in the following ways:
+[INSERT JSON]
+If they used to be a major donor (meaning their {!$Input:Donor_Gift_Summary.HighestGiftYearAmount} is greater or equal to {!$Input:Major_Gift_Threshold.Annual_Threshold__c}), then reference this fact. 
+If they used give to every year, reference this fact. This also should include hard and soft credit giving from the donor gift summary {!$RecordSnapshot:Donor_Gift_Summary.Snapshot}.
+If they also gave consistently to a certain designation, also reference this fact. We don&#39;t need to reference this if they were consistently only giving to the unrestricted fund.
+
+In the closing paragraph, we need to thank the donor again and express our appreciation for having them back as a donor.
+
+If they give a gift that is over {!$Input:Major_Gift_Threshold.Annual_Threshold__c}, then they are considered a major donor. Use language throughout the letter that highlights how generous and impactful their donation will. Don&#39;t be too effusive. 
+</content>
+        <inputs>
+            <apiName>Gift_Transaction</apiName>
+            <definition>SOBJECT://GiftTransaction</definition>
+            <masterLabel>Gift Transaction</masterLabel>
+            <referenceName>Input:Gift_Transaction</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>Donor_Gift_Summary</apiName>
+            <definition>SOBJECT://DonorGiftSummary</definition>
+            <masterLabel>Donor Gift Summary</masterLabel>
+            <referenceName>Input:Donor_Gift_Summary</referenceName>
+            <required>false</required>
+        </inputs>
+        <inputs>
+            <apiName>Major_Gift_Threshold</apiName>
+            <definition>SOBJECT://Major_Gift_Threshold__c</definition>
+            <masterLabel>Major Gift Threshold</masterLabel>
+            <referenceName>Input:Major_Gift_Threshold</referenceName>
+            <required>false</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude37Sonnet</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getDataForGrounding</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:Donor_Gift_Summary.Id}</valueExpression>
+            </parameters>
+            <referenceName>RecordSnapshot:Donor_Gift_Summary</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Gift_Transaction.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>GiftTransactionDesignationRelation</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Gift_Transaction.GiftTransactionDesignationRelation.Records</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>nsHSiXsHsM8RDfv+biI7HhOr3CfPz9ZI5HW+fmzi3Zs=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

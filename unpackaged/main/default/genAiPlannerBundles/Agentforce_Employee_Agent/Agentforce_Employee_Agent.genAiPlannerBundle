@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Automate common business tasks and assist users in their flow of work. Agentforce Employee Agent can search knowledge articles and other data sources. Customize it further to meet your employees’ business needs.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jgK000000wTUf</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Donor_Acknowledgment_Emails_16jgK000000wTUf</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Donor_Acknowledgment_Emails_16jgK000000wTUf</fullName>
+        <aiPluginUtterances>
+            <developerName>utterance_0_1765586487471</developerName>
+            <language>en_US</language>
+            <masterLabel>utterance_0_1765586487471</masterLabel>
+            <utterance>please generate a donor acknowledgement email draft</utterance>
+        </aiPluginUtterances>
+        <canEscalate>false</canEscalate>
+        <description>Handles the creation and customization of acknowledgment emails for donors.</description>
+        <developerName>Donor_Acknowledgment_Emails_16jgK000000wTUf</developerName>
+        <genAiPluginInstructions>
+            <description>If a user requests to generate a donor acknowledgement email, you must always  call the &quot;new donor acknowledge&quot; action to generate the message.
+
+If you don&#39;t have the necessary threshold information, you should first run the **get threshold action to retrieve that information.</description>
+            <developerName>instructions_0_1765579317816</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1765579317816</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>New_Donor_Acknowledgment_179gK000000iaNy</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>IdentifyRecordByName_179gK000000iaNy</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Get_Major_Gift_Threshold_179gK000000iaNy</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>New_Donor_Acknowledgment_179gK000000iaNy</fullName>
+            <description>When user asks to create acknowledgement for gift transaction then generate email for the user based on the prompt</description>
+            <developerName>New_Donor_Acknowledgment_179gK000000iaNy</developerName>
+            <invocationTarget>New_Donor_Acknowledgment_NEW2</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>New_Donor_Acknowledgment</localDeveloperName>
+            <masterLabel>New Donor Acknowledgment</masterLabel>
+            <progressIndicatorMessage>Default</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>IdentifyRecordByName_179gK000000iaNy</fullName>
+            <description>Searches for Salesforce CRM records by name and returns a list of matching Salesforce CRM record IDs.</description>
+            <developerName>IdentifyRecordByName_179gK000000iaNy</developerName>
+            <invocationTarget>identifyRecordByName</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>IdentifyRecordByName</localDeveloperName>
+            <masterLabel>Identify Record by Name</masterLabel>
+            <source>EmployeeCopilot__IdentifyRecordByName</source>
+        </localActions>
+        <localActions>
+            <fullName>QueryRecords_179gK000000iaNy</fullName>
+            <description>Finds and retrieves Salesforce CRM records based on user input and specific conditions, such as field values. This action automatically identifies the correct records and object type. e.g. &#39;Find all open opportunities created in the last 5 days sorted by created date.&#39;</description>
+            <developerName>QueryRecords_179gK000000iaNy</developerName>
+            <invocationTarget>queryRecords</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>QueryRecords</localDeveloperName>
+            <masterLabel>Query Records</masterLabel>
+            <source>EmployeeCopilot__QueryRecords</source>
+        </localActions>
+        <localActions>
+            <fullName>Get_Major_Gift_Threshold_179gK000000iaNy</fullName>
+            <description>This flow retrieves org major gift threshold records</description>
+            <developerName>Get_Major_Gift_Threshold_179gK000000iaNy</developerName>
+            <invocationTarget>Get_Major_Gift_Threshold</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Get_Major_Gift_Threshold</localDeveloperName>
+            <masterLabel>**Get Major Gift Threshold</masterLabel>
+            <progressIndicatorMessage>Getting threshold for prompt...</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>Donor_Acknowledgment_Emails</localDeveloperName>
+        <masterLabel>Donor Acknowledgment Emails</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>My job is to generate acknowledgment emails for donors based on the provided donor information and donation details.</scope>
+    </localTopics>
+    <masterLabel>Donor giving ackowledgement agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jgK000000wTUf</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jgK000000wTUf</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+</GenAiPlannerBundle>

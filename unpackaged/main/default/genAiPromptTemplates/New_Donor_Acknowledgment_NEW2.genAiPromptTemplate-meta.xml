@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>nsHSiXsHsM8RDfv+biI7HhOr3CfPz9ZI5HW+fmzi3Zs=_1</activeVersionIdentifier>
+    <developerName>New_Donor_Acknowledgment_NEW2</developerName>
+    <masterLabel>New Donor Acknowledgment</masterLabel>
+    <templateVersions>
+        <content>I am a gift officer at this nonprofit organization. The audience is a new donor. 
+
+I want to generate an acknowledgment letter for this new donor&#39;s gift to my organization. This letter should be no more than 3 paragraphs long and no more than 350 words. The language should be concise, professional, and gracious. The donor should feel appreciated and welcomed for making their first gift. 
+
+In the first paragraph, we need to reference the {!$Input:Gift_Transaction.CurrentAmount}, {!$Input:Gift_Transaction.TransactionDate}, and {!$Input:Gift_Transaction.PaymentMethod} and reference the fact that they&#39;re a new donor.
+
+In the second paragraph, we need to include information about the {!$Input:Gift_Transaction.Campaign.Name} and {!$RelatedList:Gift_Transaction.GiftTransactionDesignationRelation.Records} they donated to to thank them for their contribution.
+
+In the closing paragraph, we need to thank the donor again and direct them to review our annual report at ANNUAL REPORT and our website at WEBSITE.
+
+If they give a gift that is over {!$Input:Major_Gift_Threshold.Annual_Threshold__c}, then they are considered a major donor. Use language throughout the letter that highlights how generous and impactful their donation will. Don&#39;t be too effusive. 
+</content>
+        <inputs>
+            <apiName>Gift_Transaction</apiName>
+            <definition>SOBJECT://GiftTransaction</definition>
+            <masterLabel>Gift Transaction</masterLabel>
+            <referenceName>Input:Gift_Transaction</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>Major_Gift_Threshold</apiName>
+            <definition>SOBJECT://Major_Gift_Threshold__c</definition>
+            <masterLabel>Major Gift Threshold</masterLabel>
+            <referenceName>Input:Major_Gift_Threshold</referenceName>
+            <required>false</required>
+        </inputs>
+        <inputs>
+            <apiName>Donor_Gift_Summary</apiName>
+            <definition>SOBJECT://DonorGiftSummary</definition>
+            <masterLabel>Donor Gift Summary</masterLabel>
+            <referenceName>Input:Donor_Gift_Summary</referenceName>
+            <required>false</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude37Sonnet</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Gift_Transaction.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>GiftTransactionDesignationRelation</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Gift_Transaction.GiftTransactionDesignationRelation.Records</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>nsHSiXsHsM8RDfv+biI7HhOr3CfPz9ZI5HW+fmzi3Zs=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
